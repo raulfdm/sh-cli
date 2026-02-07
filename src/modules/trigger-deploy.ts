@@ -65,8 +65,7 @@ export async function triggerDeploy() {
   // Resolve configuration from CLI flags and environment variables
   // CLI flags take precedence over environment variables
   const applicationId = cliTriggerDeploy.flags.appId || envs.DOKPLOY_APP_ID;
-  const serverDomain =
-    cliTriggerDeploy.flags.serverDomain || envs.DOKPLOY_SERVER_DOMAIN;
+  const serverDomain = cliTriggerDeploy.flags.serverDomain || envs.DOKPLOY_SERVER_DOMAIN;
   const apiKey = cliTriggerDeploy.flags.apiKey || envs.DOKPLOY_API_KEY;
 
   // Validate that all required values are provided
