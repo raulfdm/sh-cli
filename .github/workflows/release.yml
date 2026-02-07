@@ -40,5 +40,5 @@ jobs:
         # to npm
         run: bun run release
         env:
-          # NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }} # Bun env var for publishing
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }} # Bun env var for publishing
+          # NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
