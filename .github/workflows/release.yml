@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -38,7 +38,7 @@ jobs:
         if: steps.changesets.outputs.hasChangesets == 'false'
         # Bun hasn't implemented --provenance yet so we fallback
         # to npm
-        run: bunx npm publish --provenance --access public
+        run: bun run release
         env:
           # NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }} # Bun env var for publishing
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

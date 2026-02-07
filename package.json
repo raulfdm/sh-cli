@@ -15,6 +15,7 @@
     "prepublish": "bun run build",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
+    "release": "bun run ./scripts/release.ts",
     "prepare": "husky || true"
   },
   "dependencies": {
