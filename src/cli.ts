@@ -1,4 +1,5 @@
 import meow from "meow";
+import { triggerDeploy } from "./modules/trigger-deploy";
 
 const cli = meow(
   `
@@ -19,9 +20,14 @@ const cli = meow(
         type: "boolean",
         shortFlag: "r",
       },
+      triggerDeploy: {
+        type: "boolean",
+        default: false,
+      },
     },
   },
 );
+
 /*
 {
 	input: ['unicorns'],
@@ -29,5 +35,9 @@ const cli = meow(
 	...
 }
 */
+
+if (cli.flags.triggerDeploy) {
+  await triggerDeploy();
+}
 
 console.log(cli.input.at(0), cli.flags);
