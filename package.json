@@ -1,19 +1,30 @@
 {
-  "name": "sh-cli",
-  "private": true,
+  "name": "@raulfdm/sh-cli",
+  "version": "0.1.0",
+  "files": [
+    "bin",
+    "dist",
+    "README.md"
+  ],
   "type": "module",
-  "module": "index.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "bun build ./src/cli.ts --compile --outfile ./dist/cli",
+    "build": "bun build ./src/cli.ts --target=node --outdir=dist",
+    "prepublish": "bun run build",
     "fmt": "oxfmt",
-    "fmt:check": "oxfmt --check"
+    "fmt:check": "oxfmt --check",
+    "prepare": "husky"
   },
   "dependencies": {
     "meow": "14.0.0",
     "zod": "4.3.6"
   },
   "devDependencies": {
+    "@changesets/cli": "2.29.8",
     "@types/bun": "latest",
+    "husky": "9.1.7",
     "oxfmt": "0.28.0"
   },
   "peerDependencies": {
