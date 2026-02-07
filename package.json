@@ -1,12 +1,18 @@
 {
   "name": "@raulfdm/sh-cli",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
-  "module": "index.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "README.md"
+  ],
   "scripts": {
-    "build": "bun build ./src/cli.ts --compile --outfile ./dist/cli",
-    "build:platforms": "bun run ./scripts/build-platforms.ts",
+    "build": "bun build ./src/cli.ts --target=node --outdir=dist",
+    "prepublish": "bun run build",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check"
   },
