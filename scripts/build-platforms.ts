@@ -18,10 +18,9 @@ const platforms: Platform[] = [
 
 console.log("🚀 Starting multi-platform build...");
 
-// Get version from imported package.json
-const version = pkgJson.version;
+const pkgVersion = pkgJson.version;
 
-console.log(`📦 Building version: ${version}`);
+console.log(`📦 Building version: ${pkgVersion}`);
 
 // Step 1: Clean up and create dist folder
 const distPath = path.join(process.cwd(), "dist");
@@ -47,7 +46,7 @@ for (const platform of platforms) {
   // Create platform-specific package.json
   const platformPackage = {
     name: `${pkgJson.name}-${platform.os}-${platform.arch}`,
-    version,
+    version: pkgVersion,
     os: [platform.os],
     cpu: [platform.arch],
     files: ["cli"],
