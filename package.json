@@ -15,7 +15,7 @@
     "prepublish": "bun run build",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
-    "prepare": "husky"
+    "prepare": "husky || true"
   },
   "dependencies": {
     "meow": "14.0.0",
