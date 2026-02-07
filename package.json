@@ -12,7 +12,6 @@
   },
   "scripts": {
     "build": "bun build ./src/cli.ts --target=node --outdir=dist",
-    "prepublish": "bun run build",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
     "release": "bun run ./scripts/release.ts",
