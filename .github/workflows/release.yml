@@ -38,7 +38,8 @@ jobs:
         if: steps.changesets.outputs.hasChangesets == 'false'
         # Bun hasn't implemented --provenance yet so we fallback
         # to npm
-        run: bun run release
+        run: bunx npm publish --provenance --access public
         env:
-          NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }} # Bun env var for publishing
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }} # Bun env var for publishing
           # NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
