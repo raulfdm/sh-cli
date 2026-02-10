@@ -1,5 +1,5 @@
 {
-  "name": "@raulfdm/homelab",
+  "name": "@raulfdm/homelab-cli",
   "version": "0.1.0",
   "bin": {
     "homelab": "bin/run.js"
