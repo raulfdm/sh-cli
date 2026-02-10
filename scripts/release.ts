@@ -19,7 +19,7 @@ if (!hasNoNpmrc) {
 try {
   // 1. We must ensure npm is at least v11.5.1
   // 2. We use --provenance (required for OIDC publishes)
-  await $`npm publish --provenance --access public`;
+  await $`npm publish`;
   console.log("Success!");
 } catch (error) {
   // @ts-ignore
