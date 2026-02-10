@@ -18,7 +18,6 @@
     "build": "bun build ./src/cli.ts --target=node --outdir=dist",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
-    "release": "bun run ./scripts/release.ts",
     "prepare": "husky || true"
   },
   "dependencies": {
