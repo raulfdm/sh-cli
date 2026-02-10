@@ -2,7 +2,7 @@
   "name": "@raulfdm/homelab",
   "version": "0.1.0",
   "bin": {
-    "homelab": "./bin/run.js"
+    "homelab": "bin/run.js"
   },
   "files": [
     "bin",
