@@ -1,4 +1,4 @@
-# sh-cli
+# homelab-cli
 
 A command-line tool for self-hosting utilities and deployment automation. Currently supports triggering deployments for [Dokploy](https://dokploy.com) applications.
 
@@ -7,13 +7,13 @@ A command-line tool for self-hosting utilities and deployment automation. Curren
 Install globally via npm:
 
 ```bash
-npm install -g @raulfdm/sh-cli
+npm install -g @raulfdm/homelab-cli
 ```
 
 Or use with npx (no installation required):
 
 ```bash
-npx @raulfdm/sh-cli --help
+npx @raulfdm/homelab-cli --help
 ```
 
 ## Usage
@@ -31,15 +31,15 @@ export DOKPLOY_API_KEY="your-api-key"
 export DOKPLOY_APP_ID="your-application-id"
 
 # Trigger deployment
-sh-cli --trigger-deploy
+homelab --trigger-deploy
 ```
 
 #### Using CLI Flags
 
 ```bash
-sh-cli --trigger-deploy \
+homelab --trigger-deploy \
   --app-id "your-application-id" \
-  --server-url "https://your-dokploy-server.com" \
+  --server-domain "https://your-dokploy-server.com" \
   --api-key "your-api-key"
 ```
 
@@ -48,9 +48,9 @@ sh-cli --trigger-deploy \
 ```bash
 # Use env vars for sensitive data, flags for app-specific values
 export DOKPLOY_API_KEY="your-api-key"
-sh-cli --trigger-deploy \
+homelab --trigger-deploy \
   --app-id "your-application-id" \
-  --server-url "https://your-dokploy-server.com"
+  --server-domain "https://your-dokploy-server.com"
 ```
 
 ### Available Commands
@@ -60,11 +60,11 @@ sh-cli --trigger-deploy \
 
 ### Configuration Options
 
-| CLI Flag       | Environment Variable    | Description              | Required |
-| -------------- | ----------------------- | ------------------------ | -------- |
-| `--app-id`     | `DOKPLOY_APP_ID`        | Application ID to deploy | ✅       |
-| `--server-url` | `DOKPLOY_SERVER_DOMAIN` | Dokploy server URL       | ✅       |
-| `--api-key`    | `DOKPLOY_API_KEY`       | Dokploy API key          | ✅       |
+| CLI Flag          | Environment Variable    | Description              | Required |
+| ----------------- | ----------------------- | ------------------------ | -------- |
+| `--app-id`        | `DOKPLOY_APP_ID`        | Application ID to deploy | ✅       |
+| `--server-domain` | `DOKPLOY_SERVER_DOMAIN` | Dokploy server URL       | ✅       |
+| `--api-key`       | `DOKPLOY_API_KEY`       | Dokploy API key          | ✅       |
 
 ## Development
 

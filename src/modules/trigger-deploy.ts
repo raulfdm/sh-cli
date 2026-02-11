@@ -21,12 +21,12 @@ export async function triggerDeploy() {
     Trigger a deployment for a Dokploy application
 
     Usage:
-      $ sh-cli --trigger-deploy [options]
+      $ homelab --trigger-deploy [options]
 
     Options:
-      --app-id <id>        Application ID to deploy (required if DOKPLOY_APP_ID not set)
-      --server-url <url>   Dokploy server URL (optional, defaults to DOKPLOY_SERVER_DOMAIN)
-      --api-key <key>      Dokploy API key (optional, defaults to DOKPLOY_API_KEY)
+      --app-id <id>          Application ID to deploy (required if DOKPLOY_APP_ID not set)
+      --server-domain <url>  Dokploy server URL (optional, defaults to DOKPLOY_SERVER_DOMAIN)
+      --api-key <key>        Dokploy API key (optional, defaults to DOKPLOY_API_KEY)
 
     Environment Variables (used as defaults):
       DOKPLOY_SERVER_DOMAIN  Dokploy server URL
@@ -35,13 +35,13 @@ export async function triggerDeploy() {
 
     Examples:
       # Using environment variables:
-      $ DOKPLOY_SERVER_DOMAIN=https://my-server.com DOKPLOY_API_KEY=your-key DOKPLOY_APP_ID=abc123 sh-cli --trigger-deploy
+      $ DOKPLOY_SERVER_DOMAIN=https://my-server.com DOKPLOY_API_KEY=your-key DOKPLOY_APP_ID=abc123 homelab --trigger-deploy
       
       # Using CLI flags (overrides env vars):
-      $ sh-cli --trigger-deploy --app-id abc123 --server-url https://my-server.com --api-key your-key
+      $ homelab --trigger-deploy --app-id abc123 --server-domain https://my-server.com --api-key your-key
       
       # Mixed approach:
-      $ DOKPLOY_API_KEY=your-key sh-cli --trigger-deploy --app-id abc123 --server-url https://my-server.com
+      $ DOKPLOY_API_KEY=your-key homelab --trigger-deploy --app-id abc123 --server-domain https://my-server.com
   `,
     {
       importMeta: import.meta,
@@ -79,7 +79,7 @@ export async function triggerDeploy() {
 
   if (!serverDomain) {
     console.error(
-      "Server URL is required. Provide it via --server-url flag or DOKPLOY_SERVER_DOMAIN environment variable.",
+      "Server URL is required. Provide it via --server-domain flag or DOKPLOY_SERVER_DOMAIN environment variable.",
     );
     cliTriggerDeploy.showHelp();
     process.exit(1);
