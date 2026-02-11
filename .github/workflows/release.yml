@@ -11,7 +11,8 @@ env:
   HUSKY: 0
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
   id-token: write # Mandatory for Trusted Publishing
 
 jobs:
@@ -33,11 +34,7 @@ jobs:
         uses: changesets/action@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish
-        if: steps.changesets.outputs.hasChangesets == 'false'
-        # Bun hasn't implemented --provenance yet so we fallback
-        # to npm
-        run: bun add -g npm@11.9.0 && npm publish --access public --provenance
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          publish: bun add -g npm@11.9.0 && bun changeset publish --access public --provenance
+          version: bun changeset version
+          createGithubReleases: true
