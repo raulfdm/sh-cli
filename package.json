@@ -22,7 +22,9 @@
     "build": "bun build ./src/cli.ts --target=node --outdir=dist",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
-    "prepare": "husky || true"
+    "prepare": "husky || true",
+    "ci:publish": "bun add -g npm@11.9.0 && bun changeset publish --access public --provenance",
+    "ci:version": "bun changeset version && bun run fmt"
   },
   "dependencies": {
     "meow": "14.0.0",
