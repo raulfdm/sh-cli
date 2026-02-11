@@ -36,5 +36,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           publish: bun add -g npm@11.9.0 && bun changeset publish --access public --provenance
-          version: bun changeset version
+          version: bun changeset version && bun run fmt
           createGithubReleases: true
