@@ -1,41 +1,6 @@
 import meow from "meow";
 import { z } from "zod";
 
-export const moduleInput = z.literal("deploy");
-
-const deployInputs = z.union([z.literal("trigger")]);
-
-export async function deploy() {
-  const deployCli = meow(
-    `
-    Deploy 
-  `,
-    {
-      importMeta: import.meta,
-    },
-  );
-
-  // First input is `deploy`, second input is the action to perform
-  const parsedInput = deployInputs.safeParse(deployCli.input[1]);
-
-  if (parsedInput.error) {
-    console.error("Invalid command. Please provide a valid command.");
-    deployCli.showHelp();
-  }
-
-  switch (parsedInput.data) {
-    case "trigger": {
-      await triggerDeployment();
-      break;
-    }
-    default: {
-      console.error("Unknown action.");
-      deployCli.showHelp();
-      break;
-    }
-  }
-}
-
 const configSchema = z.object({
   appId: z
     .string()
@@ -59,7 +24,7 @@ const configSchema = z.object({
     ),
 });
 
-async function triggerDeployment() {
+export async function triggerDeployment() {
   const triggerDeploymentCli = meow(``, {
     importMeta: import.meta,
     flags: {
@@ -91,20 +56,17 @@ async function triggerDeployment() {
 
   const config = flags.data;
 
-  const response = await fetch(
-    new URL(`/api/application.deploy`, config.serverDomain),
-    {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "x-api-key": config.apiKey,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        applicationId: config.appId,
-      }),
+  const response = await fetch(new URL(`/api/application.deploy`, config.serverDomain), {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "x-api-key": config.apiKey,
+      "Content-Type": "application/json",
     },
-  );
+    body: JSON.stringify({
+      applicationId: config.appId,
+    }),
+  });
 
   if (response.ok !== true) {
     console.error("Failed to trigger deployment", {
