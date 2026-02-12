@@ -1,5 +1,6 @@
 import meow from "meow";
-import { triggerDeploy } from "./modules/trigger-deploy";
+import { z } from "zod";
+import { deploy, moduleInput as deployModuleInput } from "./modules/deploy";
 
 const cli = meow(
   `
@@ -24,19 +25,25 @@ const cli = meow(
 	For more information about specific commands, run them with --help
 `,
   {
-    importMeta: import.meta, // This is required
-    flags: {
-      triggerDeploy: {
-        type: "boolean",
-        default: false,
-      },
-    },
+    importMeta: import.meta,
   },
 );
 
-if (cli.flags.triggerDeploy) {
-  await triggerDeploy();
-} else {
-  // Show help if no flags are provided
+const AllowedInputs = z.union([deployModuleInput]);
+
+const parsedInput = AllowedInputs.safeParse(cli.input[0]);
+
+if (parsedInput.error) {
+  console.error("Invalid command. Please provide a valid command.");
   cli.showHelp();
+}
+
+switch (parsedInput.data) {
+  case "deploy": {
+    await deploy();
+    break;
+  }
+  default: {
+    cli.showHelp();
+  }
 }
