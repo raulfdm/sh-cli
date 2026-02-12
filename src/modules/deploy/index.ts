@@ -9,8 +9,24 @@ const deployInputs = z.union([z.literal("trigger")]);
 export async function deploy() {
   const deployCli = meow(
     `
-    Deploy 
-  `,
+	Deploy - Deployment management commands
+
+	Usage
+	  $ homelab deploy <command> [options]
+
+	Commands
+	  trigger              Trigger a deployment for a Dokploy application
+
+	Examples
+	  # Trigger a deployment using environment variables
+	  $ DOKPLOY_SERVER_DOMAIN=https://my-server.com DOKPLOY_API_KEY=your-key DOKPLOY_APP_ID=abc123 homelab deploy trigger
+
+	  # Trigger a deployment using CLI flags  
+	  $ homelab deploy trigger --app-id abc123 --server-domain https://my-server.com --api-key your-key
+
+	  # Show trigger command help
+	  $ homelab deploy trigger --help
+`,
     {
       importMeta: import.meta,
     },
@@ -20,8 +36,9 @@ export async function deploy() {
   const parsedInput = deployInputs.safeParse(deployCli.input[1]);
 
   if (parsedInput.error) {
-    console.error("Invalid command. Please provide a valid command.");
+    // If no subcommand provided or invalid subcommand, show help
     deployCli.showHelp();
+    return;
   }
 
   switch (parsedInput.data) {

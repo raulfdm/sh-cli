@@ -31,13 +31,13 @@ export DOKPLOY_API_KEY="your-api-key"
 export DOKPLOY_APP_ID="your-application-id"
 
 # Trigger deployment
-homelab --trigger-deploy
+homelab deploy trigger
 ```
 
 #### Using CLI Flags
 
 ```bash
-homelab --trigger-deploy \
+homelab deploy trigger \
   --app-id "your-application-id" \
   --server-domain "https://your-dokploy-server.com" \
   --api-key "your-api-key"
@@ -48,15 +48,15 @@ homelab --trigger-deploy \
 ```bash
 # Use env vars for sensitive data, flags for app-specific values
 export DOKPLOY_API_KEY="your-api-key"
-homelab --trigger-deploy \
+homelab deploy trigger \
   --app-id "your-application-id" \
   --server-domain "https://your-dokploy-server.com"
 ```
 
 ### Available Commands
 
-- `--trigger-deploy`: Trigger a deployment for a Dokploy application
-- `--help`: Show help information
+- `deploy trigger`: Trigger a deployment for a Dokploy application
+- `--help`: Show help information for any command
 
 ### Configuration Options
 
@@ -95,8 +95,11 @@ homelab --trigger-deploy \
 # Run the CLI directly with Bun
 bun run src/cli.ts --help
 
-# Example: Test trigger-deploy command
-bun run src/cli.ts --trigger-deploy --help
+# Example: Test deploy command
+bun run src/cli.ts deploy --help
+
+# Example: Test trigger deployment command
+bun run src/cli.ts deploy trigger --help
 ```
 
 #### Building the project
@@ -129,14 +132,16 @@ bun run fmt:check
 ```
 sh-cli/
 ├── bin/
-│   └── run.js          # Entry point for the published CLI
+│   └── run.js               # Entry point for the published CLI
 ├── src/
-│   ├── cli.ts          # Main CLI interface
+│   ├── cli.ts               # Main CLI interface
 │   └── modules/
-│       └── trigger-deploy.ts  # Dokploy deployment functionality
-├── dist/               # Built JavaScript files (generated)
-├── package.json        # Package configuration
-└── README.md          # This file
+│       └── deploy/
+│           ├── index.ts     # Deploy command module
+│           └── trigger.ts   # Deployment trigger functionality
+├── dist/                    # Built JavaScript files (generated)
+├── package.json            # Package configuration
+└── README.md              # This file
 ```
 
 ### Adding New Commands

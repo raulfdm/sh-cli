@@ -25,26 +25,54 @@ const configSchema = z.object({
 });
 
 export async function triggerDeployment() {
-  const triggerDeploymentCli = meow(``, {
-    importMeta: import.meta,
-    flags: {
-      appId: {
-        type: "string",
-        isRequired: false,
-        default: process.env.DOKPLOY_APP_ID || "",
-      },
-      serverDomain: {
-        type: "string",
-        isRequired: false,
-        default: process.env.DOKPLOY_SERVER_DOMAIN || "",
-      },
-      apiKey: {
-        type: "string",
-        isRequired: false,
-        default: process.env.DOKPLOY_API_KEY || "",
+  const triggerDeploymentCli = meow(
+    `
+	Trigger Deployment - Trigger a deployment for a Dokploy application
+
+	Usage
+	  $ homelab deploy trigger [options]
+
+	Options
+	  --app-id <id>          Application ID to deploy (required if DOKPLOY_APP_ID not set)
+	  --server-domain <url>  Dokploy server URL (required if DOKPLOY_SERVER_DOMAIN not set)  
+	  --api-key <key>        Dokploy API key (required if DOKPLOY_API_KEY not set)
+
+	Environment Variables (used as defaults):
+	  DOKPLOY_SERVER_DOMAIN  Dokploy server URL
+	  DOKPLOY_API_KEY        Dokploy API key
+	  DOKPLOY_APP_ID         Application ID to deploy
+
+	Examples
+	  # Using environment variables
+	  $ DOKPLOY_SERVER_DOMAIN=https://my-server.com DOKPLOY_API_KEY=your-key DOKPLOY_APP_ID=abc123 homelab deploy trigger
+
+	  # Using CLI flags (overrides env vars)
+	  $ homelab deploy trigger --app-id abc123 --server-domain https://my-server.com --api-key your-key
+
+	  # Mixed approach (CLI flags override env vars)
+	  $ DOKPLOY_API_KEY=your-key homelab deploy trigger --app-id abc123 --server-domain https://my-server.com
+`,
+    {
+      importMeta: import.meta,
+      flags: {
+        appId: {
+          type: "string",
+          isRequired: false,
+          default: process.env.DOKPLOY_APP_ID || "",
+        },
+        serverDomain: {
+          type: "string",
+          isRequired: false,
+          default: process.env.DOKPLOY_SERVER_DOMAIN || "",
+        },
+        apiKey: {
+          type: "string",
+          isRequired: false,
+          default: process.env.DOKPLOY_API_KEY || "",
+        },
       },
     },
-  });
+  );
 
   const flags = configSchema.safeParse(triggerDeploymentCli.flags);
 
