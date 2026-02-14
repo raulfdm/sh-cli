@@ -60,7 +60,10 @@ function fileExists(filePath: string) {
 class TemplateFile {
   #origin: string;
 
-  constructor(public fileName: string, origin: string) {
+  constructor(
+    public fileName: string,
+    origin: string,
+  ) {
     this.#origin = path.join(origin, fileName);
   }
 

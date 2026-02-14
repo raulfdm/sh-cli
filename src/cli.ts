@@ -1,10 +1,7 @@
 import meow from "meow";
 import { z } from "zod";
 import { deploy, moduleInput as deployModuleInput } from "./modules/deploy";
-import {
-  scaffold,
-  moduleInput as scaffoldModuleInput,
-} from "./modules/scaffold";
+import { scaffold, moduleInput as scaffoldModuleInput } from "./modules/scaffold";
 
 const cli = meow(
   `
