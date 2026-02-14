@@ -84,17 +84,20 @@ export async function triggerDeployment() {
 
   const config = flags.data;
 
-  const response = await fetch(new URL(`/api/application.deploy`, config.serverDomain), {
-    method: "POST",
-    headers: {
-      accept: "application/json",
-      "x-api-key": config.apiKey,
-      "Content-Type": "application/json",
+  const response = await fetch(
+    new URL(`/api/application.deploy`, config.serverDomain),
+    {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "x-api-key": config.apiKey,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        applicationId: config.appId,
+      }),
     },
-    body: JSON.stringify({
-      applicationId: config.appId,
-    }),
-  });
+  );
 
   if (response.ok !== true) {
     console.error("Failed to trigger deployment", {

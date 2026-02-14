@@ -11,7 +11,8 @@
   "files": [
     "bin",
     "dist",
-    "README.md"
+    "README.md",
+    "templates"
   ],
   "type": "module",
   "publishConfig": {

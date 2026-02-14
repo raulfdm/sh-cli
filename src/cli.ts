@@ -1,6 +1,10 @@
 import meow from "meow";
 import { z } from "zod";
 import { deploy, moduleInput as deployModuleInput } from "./modules/deploy";
+import {
+  scaffold,
+  moduleInput as scaffoldModuleInput,
+} from "./modules/scaffold";
 
 const cli = meow(
   `
@@ -19,21 +23,29 @@ const cli = meow(
   },
 );
 
-const AllowedInputs = z.union([deployModuleInput]);
+const AllowedInputs = z.union([deployModuleInput, scaffoldModuleInput]);
+type AllowedInputs = z.infer<typeof AllowedInputs>;
 
 const parsedInput = AllowedInputs.safeParse(cli.input[0]);
 
 if (parsedInput.error) {
-  cli.showHelp();
-  process.exit(0);
+  showHelpAndExit();
 }
 
-switch (parsedInput.data) {
-  case "deploy": {
-    await deploy();
-    break;
-  }
-  default: {
-    cli.showHelp();
-  }
+const inputMapper: Record<AllowedInputs, () => Promise<void>> = {
+  deploy,
+  scaffold,
+};
+
+const moduleFn = inputMapper[parsedInput.data];
+
+if (moduleFn) {
+  await moduleFn();
+} else {
+  showHelpAndExit();
+}
+
+function showHelpAndExit(): never {
+  cli.showHelp();
+  process.exit(0);
 }
